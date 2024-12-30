@@ -1,0 +1,44 @@
+<div class="reminder-container" (click)="exit()">
+  <div class="reminder-box" (click)="$event.stopPropagation();">
+    <div class="reminder-header">
+      <button class="btn-close" (click)="exit()">X</button>
+    </div>
+    <div class="field" *ngIf="editMode">
+    </div>
+    <form class="form-group" autocomplete="off" [formGroup]="reminderForm">
+      <input autocomplete="off" name="hidden" type="text" style="display:none;">
+
+      <!-- Campo Paciente -->
+      <div class="field">
+        <p>Paciente<span class="red-text" *ngIf="editMode">*</span></p>
+        <input type="text" class="input-field" [class.input-error]="fieldHasError('title')" id="title"
+          formControlName="paciente" maxlength="30" placeholder="">
+        <p class="red-text" *ngIf="fieldHasError('title')"></p>
+      </div>
+
+      <!-- Campo Fecha -->
+      <div class="field">
+        <p>Fecha<span class="red-text" *ngIf="editMode">*</span><small class="support-all-browsers">(YYYY/MM/DD)</small></p>
+        <input type="date" id="fecha" class="input-field field-date-time support-not-all-browsers" 
+               [class.input-error]="fieldHasError('date')" formControlName="fecha">
+        <input type="text" id="fecha" class="input-field field-date-time support-all-browsers" 
+               mask="0000-00-00" [class.input-error]="fieldHasError('date')"
+               formControlName="fecha" placeholder="YYYY/MM/DD">
+      </div>
+
+      <!-- Campo Horario -->
+      <div class="field">
+        <p>Horario</p>
+        <textarea
+          id="horario"
+          class="input-field"
+          placeholder="Add horario"
+          maxlength="500"
+          rows="3"
+          style="width: 100%;"
+          formControlName="horario">
+        </textarea>
+      </div>
+    </form>
+  </div>
+</div>

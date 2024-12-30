@@ -1,0 +1,147 @@
+<div class="reporte">
+  <h2>Reportes</h2>
+
+  <!-- Selección de Consulta -->
+  <div class="consulta-selector">
+    <label for="consultaSeleccionada">Selecciona la consulta que deseas realizar:</label>
+    <select id="consultaSeleccionada" [(ngModel)]="consultaSeleccionada">
+      <option value="citasDoctor">Filtrar Citas Médicas por Doctor</option>
+      <option value="ventasRango">Ventas por Rango de Fechas</option>
+      <option value="citasRango">Citas Médicas por Rango de Fechas</option>
+      <option value="ventasProducto">Ventas por Producto</option>
+      <option value="citasPaciente">Citas Médicas por Paciente</option>
+      
+    </select>
+  </div>
+
+  <!-- Filtrar Citas Médicas por Doctor -->
+  <div *ngIf="consultaSeleccionada === 'citasDoctor'" class="reporte-section" [class.open]="openSections.citasDoctor">
+    <h3 class="toggle" (click)="toggleSection('citasDoctor')">
+      Filtrar Citas Médicas por Doctor
+      <span class="toggle-icon">{{ openSections.citasDoctor ? '-' : '+' }}</span>
+    </h3>
+    <div class="content">
+      <button (click)="getCitasPorDoctor()">Filtrar Citas</button>
+      <label for="doctorSeleccionado">Selecciona un doctor:</label>
+      <select id="doctorSeleccionado" [(ngModel)]="doctorSeleccionado">
+        <option *ngFor="let doctor of doctores" [value]="doctor.id">
+          {{ doctor.nombre }}
+        </option>
+      </select>
+      <h3>Citas Médicas</h3>
+      <ul>
+        <li *ngFor="let cita of doctorCitas" (click)="seleccionarCita(cita)">
+          Paciente: {{ cita.paciente.nombre }}, Fecha: {{ cita.fecha | date:'shortDate' }}, Hora: {{ cita.horario }}, Estado: {{ cita.estado }}
+        </li>
+      </ul>
+      <div *ngIf="citaSeleccionada.id">
+        <h3>Detalle de la cita médica seleccionada</h3>
+        <form>
+          <div>
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" [(ngModel)]="citaSeleccionada.fecha" name="fecha">
+          </div>
+          <div>
+            <label for="hora">Horario:</label>
+            <input type="time" id="horario" [(ngModel)]="citaSeleccionada.hora" name="horario">
+          </div>
+          <div>
+            <label for="estado">Estado:</label>
+            <select id="estado" [(ngModel)]="citaSeleccionada.estado" name="estado">
+              <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtrar Ventas por Rango de Fechas -->
+  <div *ngIf="consultaSeleccionada === 'ventasRango'" class="reporte-section" [class.open]="openSections.ventasRango">
+    <h3 class="toggle" (click)="toggleSection('ventasRango')">
+      Ventas por Rango de Fechas
+      <span class="toggle-icon">{{ openSections.ventasRango ? '-' : '+' }}</span>
+    </h3>
+    <div class="content">
+      <button (click)="getVentasPorRangoFecha(fechaInicio, fechaFin)">Filtrar Ventas</button>
+      <label for="fechaInicio">Fecha Inicio:</label>
+      <input type="date" id="fechaInicio" [(ngModel)]="fechaInicio">
+      <label for="fechaFin">Fecha Fin:</label>
+      <input type="date" id="fechaFin" [(ngModel)]="fechaFin">
+      <ul>
+        <li *ngFor="let venta of ventasPorRango">
+          Fecha: {{ venta.fecha | date:'shortDate' }} - Total: {{ venta.total | currency }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Filtrar Citas Médicas por Rango de Fechas -->
+  <div *ngIf="consultaSeleccionada === 'citasRango'" class="reporte-section" [class.open]="openSections.citasRango">
+    <h3 class="toggle" (click)="toggleSection('citasRango')">
+      Citas Médicas por Rango de Fechas
+      <span class="toggle-icon">{{ openSections.citasRango ? '-' : '+' }}</span>
+    </h3>
+    <div class="content">
+      <button (click)="getCitasPorRangoFecha(fechaInicioCita, fechaFinCita)">Filtrar Citas</button>
+      <label for="fechaInicioCita">Fecha Inicio:</label>
+      <input type="date" id="fechaInicioCita" [(ngModel)]="fechaInicioCita">
+      <label for="fechaFinCita">Fecha Fin:</label>
+      <input type="date" id="fechaFinCita" [(ngModel)]="fechaFinCita">
+      <ul>
+        <li *ngFor="let cita of citasPorRango">
+          Paciente: {{ cita.paciente.nombre }}, Fecha: {{ cita.fecha | date:'shortDate' }}, Hora: {{ cita.horario }}, Notas: {{ cita.estado }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Filtrar Ventas por Producto -->
+  <div *ngIf="consultaSeleccionada === 'ventasProducto'" class="reporte-section" [class.open]="openSections.ventasProducto">
+    <h3 class="toggle" (click)="toggleSection('ventasProducto')">
+      Ventas por Producto
+      <span class="toggle-icon">{{ openSections.ventasProducto ? '-' : '+' }}</span>
+    </h3>
+    <div class="content">
+      <button (click)="getVentasPorProducto(fechaInicioProducto, fechaFinProducto, productoSeleccionado)">Filtrar Ventas</button>
+      <label for="productoSeleccionado">Selecciona un producto:</label>
+      <select id="productoSeleccionado" [(ngModel)]="productoSeleccionado">
+        <option *ngFor="let producto of productos" [value]="producto.id">
+          {{ producto.nombre }}
+        </option>
+      </select>
+      <label for="fechaInicioProducto">Fecha Inicio:</label>
+      <input type="date" id="fechaInicioProducto" [(ngModel)]="fechaInicioProducto">
+      <label for="fechaFinProducto">Fecha Fin:</label>
+      <input type="date" id="fechaFinProducto" [(ngModel)]="fechaFinProducto">
+      <ul>
+        <li *ngFor="let venta of ventasPorProducto">
+          Producto: {{ venta.producto.nombre }} - Fecha: {{ venta.fecha | date:'shortDate' }} - Total: {{ venta.total | currency }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Filtrar Citas Médicas por Paciente -->
+  <div *ngIf="consultaSeleccionada === 'citasPaciente'" class="reporte-section" [class.open]="openSections.citasPaciente">
+    <h3 class="toggle" (click)="toggleSection('citasPaciente')">
+      Citas Médicas por Paciente
+      <span class="toggle-icon">{{ openSections.citasPaciente ? '-' : '+' }}</span>
+    </h3>
+    <div class="content">
+      <button (click)="getCitasPorPaciente()">Filtrar Citas</button>
+      <label for="pacienteSeleccionado">Selecciona un paciente:</label>
+      <select id="pacienteSeleccionado" [(ngModel)]="pacienteSeleccionado">
+        <option *ngFor="let paciente of pacientes" [value]="paciente.id">
+          {{ paciente.nombre }}
+        </option>
+      </select>
+      <h3>Citas Médicas</h3>
+      <ul>
+        <li *ngFor="let cita of pacienteCitas">
+          Doctor: {{ cita.doctor.nombre }}, Fecha: {{ cita.fecha | date:'shortDate' }}, Hora: {{ cita.horario }}, Estado: {{ cita.estado }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

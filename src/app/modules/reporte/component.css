@@ -1,0 +1,205 @@
+/* General styles for the reporte section */
+.reporte {
+  font-family: 'Arial', sans-serif;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f5f7fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.reporte h2 {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 26px;
+  margin-bottom: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Consulta Selector */
+.consulta-selector {
+  margin-bottom: 30px;
+}
+
+.consulta-selector label {
+  font-size: 18px;
+  color: #34495e;
+  font-weight: 500;
+}
+
+select {
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 12px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #3498db;
+  background-color: #ecf0f1;
+  transition: all 0.3s;
+}
+
+select:hover {
+  background-color: #dfe6e9;
+  border-color: #2980b9;
+}
+
+/* Report Section Styles */
+.reporte-section {
+  margin-top: 30px;
+  padding: 25px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.4s ease, max-height 0.4s ease;
+}
+
+.reporte-section.open {
+  opacity: 1;
+  max-height: 800px; /* Adjust according to the content */
+}
+
+/* Toggle section (open/close button) */
+.toggle {
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  color: #34495e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #3498db;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.toggle:hover {
+  background-color: #2980b9;
+}
+
+.toggle-icon {
+  font-size: 20px;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.toggle-icon.open {
+  transform: rotate(180deg);
+}
+
+/* Section Content */
+.content {
+  padding: 20px;
+  margin-top: 15px;
+}
+
+button {
+  padding: 12px 30px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #2ecc71;
+  transform: scale(1.05);
+}
+
+ul {
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+li {
+  font-size: 16px;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+li:hover {
+  color: #3498db;
+  transform: scale(1.03);
+}
+
+/* Styling the input fields */
+input[type="date"], input[type="time"], input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background-color: #f8f9fa;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+input[type="date"]:hover, input[type="time"]:hover, input[type="text"]:hover {
+  background-color: #e2e6ea;
+}
+
+input[type="date"]:focus, input[type="time"]:focus, input[type="text"]:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .reporte {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  select, input[type="date"], input[type="time"], input[type="text"] {
+    width: 100%;
+  }
+
+  .toggle {
+    font-size: 18px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  li {
+    font-size: 14px;
+  }
+}
+
+/* Styling for the overall page */
+body {
+  background-color: #ecf0f1;
+  font-family: 'Arial', sans-serif;
+  color: #34495e;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  font-size: 22px;
+  color: #2c3e50;
+  font-weight: 600;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+h3.toggle {
+  margin-top: 0;
+}
+
+.reporte-section ul {
+  list-style: none;
+  padding-left: 0;
+}

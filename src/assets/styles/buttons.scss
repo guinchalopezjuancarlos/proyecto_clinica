@@ -1,0 +1,241 @@
+@import "./colors";
+
+$color_btn_dark: $color-dark-grey;
+$color_btn_primary: $color-info;
+$color_btn_secondary: $color-light-grey;
+$color_btn_success: $color-success;
+$color_btn_danger: $color-danger;
+$color_btn_warning: $color-warning;
+$color_btn_light: $color-success;
+$color_btn_success_rh: $color-success;
+$color_btn_disabled: #f5f5f5;
+
+$font_size_btn_sm: 16px;
+$font_size_btn_lg: 20px;
+
+button {
+  cursor: pointer;
+}
+
+.btn {
+  min-width: 100px;
+  font-size: 1rem;
+  line-height: 1.5;
+  border: 0px;
+  border-radius: 5px;
+  border-color: transparent;
+  padding: 0px 15px;
+  height: 40px;
+
+  &.btn-success:disabled,
+  &.btn-dark:disabled,
+  &.btn-primary:disabled,
+  &.btn-secondary:disabled,
+  &.btn-success-rh:disabled,
+  &.btn-danger:disabled,
+  &.btn-warning:disabled,
+  &.btn-light:disabled {
+    color: #bebebe;
+    background-color: $color_btn_disabled;
+    border: 0px;
+    cursor: auto;
+  }
+
+  &:active {
+    border-color: transparent;
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:focus {
+    border-color: transparent;
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.btn-dark {
+  color: white;
+  background-color: $color_btn_dark;
+
+  &:hover {
+    background-color: darken($color: $color_btn_dark, $amount: 5%);
+    border-color: transparent;
+  }
+
+  &:active {
+    background-color: darken($color: $color_btn_dark, $amount: 10%);
+    border-color: transparent;
+  }
+}
+
+.btn-primary {
+  color: white;
+  background-color: $color_btn_primary;
+
+  &:hover {
+    color: white;
+    background-color: darken($color: $color_btn_primary, $amount: 5%);
+  }
+  &:active {
+    color: white;
+    background-color: darken($color: $color_btn_primary, $amount: 10%);
+  }
+}
+
+.btn-secondary {
+  color: black;
+  background-color: $color_btn_secondary;
+
+  &:hover {
+    color: black;
+    background-color: darken($color: $color_btn_secondary, $amount: 5%);
+  }
+  &:active {
+    color: black;
+    background-color: darken($color: $color_btn_secondary, $amount: 10%);
+  }
+}
+
+.btn-success {
+  color: white;
+  background-color: $color_btn_success;
+
+  &:hover {
+    background-color: darken($color: $color_btn_success, $amount: 5%);
+  }
+
+  &:active {
+    background-color: darken($color: $color_btn_success, $amount: 10%);
+  }
+}
+
+.btn-success-rh {
+  color: white;
+  background-color: $color_btn_success_rh;
+
+  &:hover {
+    background-color: darken($color: $color_btn_success_rh, $amount: 5%);
+  }
+
+  &:active {
+    background-color: darken($color: $color_btn_success_rh, $amount: 10%);
+  }
+}
+
+.btn-danger {
+  color: white;
+  background-color: $color_btn_danger;
+
+  &:hover {
+    background-color: darken($color: $color_btn_danger, $amount: 5%);
+  }
+  &:active {
+    background-color: darken($color: $color_btn_danger, $amount: 10%);
+  }
+}
+
+.backoffice-content.modal-footer .btn {
+  height: 40px !important;
+}
+
+.backoffice-content.modal-footer .btn-light {
+  color: $color_btn_light !important;
+  border: solid 1px $color_btn_light !important;
+  background-color: white !important;
+
+  &:focus {
+    border: solid 1px $color_btn_success !important;
+  }
+
+  &:hover {
+    color: white !important;
+    border: 0px !important;
+    background-color: darken($color: $color_btn_success, $amount: 5%) !important;
+  }
+
+  &:active {
+    color: white !important;
+    border: 0px !important;
+    background-color: darken($color: $color_btn_success, $amount: 10%) !important;
+  }
+}
+
+.backoffice-content.modal-footer .btn-success {
+  color: white !important;
+  background-color: $color_btn_success !important;
+
+  &:hover {
+    background-color: darken($color: $color_btn_success, $amount: 5%) !important;
+  }
+
+  &:active {
+    background-color: darken($color: $color_btn_success, $amount: 10%) !important;
+  }
+}
+
+.btn-warning {
+  color: white;
+  background-color: $color_btn_warning;
+
+  &:hover {
+    background-color: darken($color: $color_btn_warning, $amount: 5%);
+  }
+  &:active {
+    background-color: darken($color: $color_btn_warning, $amount: 10%);
+  }
+}
+
+.btn-light {
+  color: $color_btn_light;
+  border: solid 1px $color_btn_light;
+  background-color: white;
+
+  &:focus {
+    border: solid 1px $color_btn_success;
+  }
+
+  &:hover {
+    color: white;
+    border: 0px;
+    background-color: darken($color: $color_btn_success, $amount: 5%);
+  }
+
+  &:active {
+    color: white;
+    border: 0px;
+    background-color: darken($color: $color_btn_success, $amount: 10%);
+  }
+}
+
+.btn-light-danger {
+  color: $color_btn_danger;
+  border: solid 1px $color_btn_danger;
+  background-color: white;
+
+  &:focus {
+    border: solid 1px $color_btn_danger;
+  }
+
+  &:hover {
+    color: white;
+    border: 0px;
+    background-color: darken($color: $color_btn_danger, $amount: 5%);
+  }
+
+  &:active {
+    color: white;
+    border: 0px;
+    background-color: darken($color: $color_btn_danger, $amount: 10%);
+  }
+}
+
+.btn-sm {
+  font-size: $font_size_btn_sm;
+  height: 30px;
+}
+
+.btn-lg {
+  font-size: $font_size_btn_lg;
+  height: 50px;
+}

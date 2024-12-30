@@ -1,0 +1,76 @@
+
+
+<div class="container-calendar">
+  
+  <!-- calendar.component.html -->
+<button routerLink="/day">Go to Day View</button>
+
+  <div class="title-month">
+    <button class="btn btn-secondary previous btn-mobile-change-month " (click)="showOtherMonth('previous')"> « </button>
+    <button class="btn btn-secondary previous" (click)="showOtherMonth('previous')">Previous</button>
+    <h2>{{ calendarView | date: 'MMMM y' }}</h2>
+    <button class="btn btn-secondary next" (click)="showOtherMonth('next')">Next</button>
+    <button class="btn btn-secondary next btn-mobile-change-month " (click)="showOtherMonth('next')">»</button>
+  </div>
+  <app-new-reminder *ngIf="reminderModalVisible" [selectedReminder]="selectedReminder"
+    (changeVisibility)="onChangeReminderVisibility($event)" (submitReminder)="onReminderModalSubmit($event)"
+    (deleteReminder)="onReminderDelete($event)"></app-new-reminder>
+
+  <div class="calendar-header">
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <span class="weekday-full">lunes</span>
+          <span class="weekday-abbreviation">Sun</span>
+        </th>
+        <th>
+          <span class="weekday-full">Martes</span>
+          <span class="weekday-abbreviation">Mon</span>
+        </th>
+        <th>
+          <span class="weekday-full">miercoles</span>
+          <span class="weekday-abbreviation">Tue</span>
+        </th>
+        <th>
+          <span class="weekday-full">jueves</span>
+          <span class="weekday-abbreviation">Wed</span>
+        </th>
+        <th>
+          <span class="weekday-full">viernes</span>
+          <span class="weekday-abbreviation">Thu</span>
+        </th>
+        <th>
+          <span class="weekday-full">sabado</span>
+          <span class="weekday-abbreviation">Fri</span>
+        </th>
+        <th>
+          <span class="weekday-full">domingo</span>
+          <span class="weekday-abbreviation">Sat</span>
+        </th>
+      </tr>
+    </thead>
+  </table>
+
+  <div class="container-grid">
+    <div class="grid-row" *ngFor="let day of month" [class.weekend]="isWeekend(day.date)"
+      (click)="openModalNewReminder(day)">
+      <p class="day" [class.today-calendar-mark]="day.currentDay"
+        [class.other-month-day]="isDayFromOtherMonth(day.date)">
+        {{ day.date | date: 'd' }}
+      </p>
+
+      <div class="reminder-flag" *ngFor="let reminder of day.reminders"
+        (click)="$event.stopPropagation();
+        openModalReminderDetails(reminder)">
+        <p class="blue">{{ reminder.paciente.nombre }}</p>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
+  
+
+</div>

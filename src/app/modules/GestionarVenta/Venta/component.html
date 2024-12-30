@@ -1,0 +1,225 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Ventas</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Ventas</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <!-- /.row -->
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <button
+            type="button"
+            class="card-title btn btn-secondary"
+            style="float: right; margin-right: 10px"
+            (click)="downloadPDF()"
+          >
+            Download PDF
+          </button>
+            <table
+            *ngIf="allVentas.length > 0"
+              datatable
+              class="row-border hover table table-hover text-nowrap"
+            >
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Cliente</th>
+                  <th>Fecha</th>
+                  <th>Metodopago</th>
+                    <th>Estado</th>
+                  <th>Total</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let e of allVentas">
+                  <td>{{ e.id }}</td>
+                  <td>{{ e.cliente?.nombre || '' }}</td>
+                  <td>{{ e.fecha || '' }}</td>
+                  <td>{{ e.metodopago == 1 ? 'Pago Qr' : e.metodopago || '' }}</td>
+                  <td [ngClass]="{ 'text-success': e.estado == 2, 'text-danger': e.estado != 2 }">{{ e.estado == 2 ? 'CANCELADO' : 'NO CANCELADO' }} </td>
+                  <td>{{ e.total || '' }}</td>
+                  <td>
+                    <i class="fas fa-trash" (click)="delete(e)"></i>
+                    <i
+                      class="fas fa-pen"
+                      style="margin-left: 15px"
+                      (click)="read(e)"
+                      data-toggle="modal"
+                      data-target="#user-modal"
+                    ></i>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<div class="modal fade" id="user-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="!editPopup">Add </h4>
+        <h4 class="modal-title" *ngIf="editPopup">Edit </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="Form">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="cliente">Cliente</label>
+              <ng-select
+                [ngClass]="{ 'is-invalid': errors.includes('selecteCliente') }"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                [searchable]="true"
+                bindLabel="cliente.nombre"
+                formControlName="cliente"
+                placeholder="Select cliente"
+              >
+                <ng-option *ngFor="let cliente of clientes" [value]="cliente">{{
+                  cliente.nombre
+                }}</ng-option>
+              </ng-select>
+              <span
+                id="role-error"
+                *ngIf="errors.includes('selectedCliente')"
+                class="error invalid-feedback"
+                >{{ formError.selectedCliente }}</span
+              >
+            </div>
+
+
+            <div class="form-group">
+              <label for="fecha">Fecha</label>
+              <input
+                type="date"
+                formControlName="fecha"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': errors.includes('fecha') }"
+                id="fecha"
+                placeholder="fecha"
+              />
+
+            </div>
+
+
+
+
+            <div class="form-group">
+              <label for="metodopago">Metodo Pago</label>
+              <ng-select
+                [ngClass]="{ 'is-invalid': errors.includes('selectedMetodoPago') }"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                [searchable]="true"
+                bindLabel="metodopago"
+                formControlName="metodopago"
+                placeholder="Select metodo"
+              >
+                <ng-option *ngFor="let metodo of metodosPago" [value]="metodo.id">{{
+                  metodo.name
+                }}</ng-option>
+              </ng-select>
+              <span
+                id="role-error"
+                *ngIf="errors.includes('selectedMetodo')"
+                class="error invalid-feedback"
+                >{{ formError.selectedMetodoPago }}</span
+              >
+            </div>
+            <div class="form-group">
+              <label for="estado">Estado</label>
+              <ng-select
+                [ngClass]="{ 'is-invalid': errors.includes('selectedestado') }"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                [searchable]="true"
+                bindLabel="estado"
+                formControlName="estado"
+                placeholder="Select estado"
+              >
+                <ng-option *ngFor="let estado of estadosVenta" [value]="estado.id">{{
+                  estado.name
+                }}</ng-option>
+              </ng-select>
+              <span
+                id="role-error"
+                *ngIf="errors.includes('selectedestado')"
+                class="error invalid-feedback"
+                >{{ formError.selectedestado }}</span
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="total">Total</label>
+              <input
+                type="number"
+                formControlName="total"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': errors.includes('total') }"
+                id="total"
+                placeholder="total"
+              />
+            </div>
+
+          </div>
+          <!-- /.card-body -->
+        </form>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" #closeModal data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" *ngIf="!editPopup"  (click)="create()" class="btn btn-primary">
+          Create
+        </button>
+        <button type="button" *ngIf="editPopup" [disabled]="formSubmissionFlag" (click)="update()" class="btn btn-primary">
+          <div class="spinner-border text-light spinner" *ngIf="formSubmissionFlag"></div>
+          Save changes
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+

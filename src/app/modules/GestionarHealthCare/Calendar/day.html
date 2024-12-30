@@ -1,0 +1,16 @@
+<div class="calendar">
+    <h2>{{ selectedDate | date: 'longDate' }}</h2>
+    <div class="calendar-day">
+      <div class="day-header">
+        <button (click)="changeDate(-1)">Prev Day</button>
+        <h3>{{ selectedDate | date: 'EEEE, MMMM d, yyyy' }}</h3>
+        <button (click)="changeDate(1)">Next Day</button>
+      </div>
+      <div class="day-events">
+        <div *ngFor="let event of getEventsForDay()">
+          <p>{{ event.time }} - {{ event.title }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

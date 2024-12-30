@@ -1,0 +1,208 @@
+@import 'src/assets/styles/colors';
+
+$color-current-day: #48bd81;
+
+.container-calendar {
+  padding: 5vh;
+  max-width: 1060px;
+  margin: auto;
+
+  @media (max-width: 680px) {
+    padding: 10px;
+  }
+
+  @media (max-width: 400px) {
+    padding: 5px;
+  }
+}
+
+.calendar-header {
+  padding: 10px 10px;
+  background-color: white;
+  border: 1px solid $color-grey;
+
+  .options {
+    display: table;
+    margin-left: auto;
+
+    @media (max-width: 580px) {
+      display: none;
+    }
+  }
+}
+
+.title-month {
+  display: flex;
+  position: absolute;
+  width: auto; // Asegura que el ancho sea dinámico
+  padding: 0 10px; // Reduce el espacio alrededor del título
+
+  @media (max-width: 580px) {
+    position: inherit;
+    justify-content: center;
+    padding: 0 5px; // Ajusta para pantallas pequeñas
+  }
+
+  h2 {
+    font-size: 16px; // Reduce el tamaño del texto del título
+    margin: 0; // Elimina márgenes adicionales
+    padding: 0; // Elimina relleno
+  }
+
+  .next,
+  .previous {
+    padding: 2px 4px; // Ajustar espacio interno para los botones
+    font-size: 12px; // Tamaño de fuente reducido para los botones
+    border-radius: 4px; // Botones más compactos
+    min-width: 20px; // Reducir ancho mínimo
+    display: none;
+
+    @media (min-width: 380px) {
+      display: block;
+    }
+  }
+
+  .next.btn-mobile-change-month,
+  .previous.btn-mobile-change-month {
+    display: block;
+    padding: 2px 2px; // Espacio interno reducido
+    font-size: 10px; // Tamaño de fuente reducido
+    min-width: 20px;
+
+    @media (min-width: 380px) {
+      display: none;
+    }
+  }
+}
+
+
+
+h2 {
+  min-width: 200px;
+  text-align: center;
+  padding: 8px 8px;
+
+  @media (max-width: 460px) {
+    font-size: 18px;
+  }
+}
+
+table {
+  width: 100.1%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border: 1px solid $color-grey;
+}
+
+thead tr {
+  background-color: $color-info;
+  color: white;
+}
+
+.weekday-full {
+  display: block;
+
+  @media (max-width: 580px) {
+    display: none;
+  }
+}
+
+.weekday-abbreviation {
+  display: none;
+
+  @media (max-width: 580px) {
+    display: block;
+  }
+}
+
+.day {
+  padding: 5px;
+}
+
+.weekend {
+  background-color: $color-light-grey;
+
+  .day.today-calendar-mark {
+    color: white;
+  }
+
+  .day {
+    color: $color-info;
+  }
+}
+
+.today-calendar-mark {
+  color: white;
+  background-color: $color-current-day;
+  width: 26px;
+  text-align: center;
+  border-radius: 5px;
+  padding: 3px 5px;
+  margin: 2px 5px;
+
+  &.weekend {
+    color: white;
+  }
+}
+
+.container-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.grid-row {
+  background-color: white;
+  border: 1px solid $color-grey;
+  font-weight: bold;
+  min-height: 12vh;
+  overflow: hidden;
+
+  &.weekend {
+    background-color: $color-light-grey;
+  }
+}
+
+.other-month-day {
+  color: $color-grey;
+}
+
+.reminder-flag {
+  padding: 1px 5px;
+  cursor: pointer;
+}
+
+.reminder-flag p {
+  padding: 2px 4px;
+  background-color: $color-info;
+  color: white;
+  overflow: hidden;
+  max-height: 20px;
+
+  &.green {
+    background-color: $color-success;
+    color: black;
+  }
+
+  &.red {
+    background-color: $color-danger;
+    color: white;
+  }
+
+  &.yellow {
+    background-color: $color-warning;
+    color: black;
+  }
+}
+
+.reminder-block {
+  margin-top: 25px;
+}
+
+.success-message {
+  padding: 15px;
+  margin: 10px 0;
+  background-color: $color-success;
+  border: 2px solid $color-current-day;
+  font-weight: bold;
+  border-radius: 10px;
+}

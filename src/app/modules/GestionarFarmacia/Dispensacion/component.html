@@ -1,0 +1,113 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Dispensación bajo prescripción médica</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Dispensación</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <!-- /.row -->
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+
+
+          <div class="form-group">
+            <label for="medicamento">Medicamento</label>
+            <ng-select
+              [ngClass]="{ 'is-invalid': errors.includes('selectedMedicamento') }"
+              [multiple]="false"
+              [closeOnSelect]="true"
+              [searchable]="true"
+              bindLabel="nombre"
+              placeholder="Select Medicamento"
+              [(ngModel)]="selectedMedicamento"
+            >
+              <ng-option *ngFor="let medicamento of allMedicamentos" [value]="medicamento">{{
+                medicamento.nombre
+              }}</ng-option>
+            </ng-select>
+          </div>
+
+          <div class="form-group">
+            <label for="cantidad">Cantidad</label>
+            <input
+              type="number"
+              id="cantidad"
+              class="form-control"
+              [(ngModel)]="cantidad"
+              placeholder="Ingrese cantidad"
+            />
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary" (click)="agregarMedicamento()">
+              Añadir a la tabla
+            </button>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="row-border hover table table-hover text-nowrap">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Nombre</th>
+                  <th>Precio</th>
+                  <th>Cantidad</th>
+                  <th>Subtotal</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of carrito; let i = index">
+                  <td>{{ item.id }}</td>
+                  <td>{{ item.nombre }}</td>
+                  <td>{{ item.precio | currency }}</td>
+                  <td>{{ item.cantidad }}</td>
+                  <td>{{ item.subtotal | currency }}</td>
+                  <td>
+                    <button
+                      class="btn btn-danger btn-sm"
+                      (click)="eliminarMedicamento(i)"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+
+          <div class="card-footer">
+            <h4>Total: <span>{{ total | currency }}</span></h4>
+            <button class="btn btn-success btn-ls" (click)="pagar()">
+             Ir a Pagar
+            </button>
+          </div>
+        </div>
+        <!-- /.card -->
+      </div>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->

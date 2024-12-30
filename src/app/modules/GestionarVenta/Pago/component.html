@@ -1,0 +1,250 @@
+<!-- Encabezado de Contenido -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Pagos</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Pagos</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contenido Principal -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <button
+              type="button"
+              data-toggle="modal"
+              data-target="#pago-modal"
+              class="btn btn-primary"
+              style="float: right;"
+            >
+              Create
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              style="float: right; margin-right: 10px;"
+              (click)="downloadPDF()"
+            >
+              Download PDF
+            </button>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table
+              *ngIf="allPagos.length > 0"
+              datatable
+              class="table table-hover text-nowrap"
+            >
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Paciente</th>
+                  <th>Fecha de Pago</th>
+                  <th>Método de Pago</th>
+                  <th>Estado</th>
+                  <th>Tipo de Consulta</th>
+                  <th>Monto Total</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let e of allPagos">
+                  <td>{{ e.id }}</td>
+                  <td>{{ e.paciente }}</td>
+                  <td>{{ e.fechapago }}</td>
+                  <td>{{ e.metodopago }}</td>
+                  <td>{{ e.estado }}</td>
+                  <td>{{ e.tipoConsulta }}</td>
+                  <td>{{ e.montoTotal }}</td>
+                  <td>
+                    <i class="fas fa-trash" (click)="delete(e)"></i>
+                    <i class="m-2" (click)="print(e)">
+                      <img 
+                        src="https://img.icons8.com/?size=100&id=uRoarpD5f5ra&format=png&color=000000" 
+                        alt="Icono" 
+                        class="img-fluid rounded" 
+                        style="width: 24px; height: 24px;"
+                      />
+                    </i>
+                    <i
+                      class="fas fa-pen"
+                      style="margin-left: 15px;"
+                      (click)="read(e)"
+                      data-toggle="modal"
+                      data-target="#pago-modal"
+                    ></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal para Crear/Editar Pagos -->
+<div class="modal fade" id="pago-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Encabezado del Modal -->
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="!editPopup">Agregar Pago</h4>
+        <h4 class="modal-title" *ngIf="editPopup">Editar Pago</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Cuerpo del Modal -->
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <div class="card-body">
+            <!-- Campo Paciente -->
+            <div class="form-group">
+              <label for="paciente">Paciente</label>
+              <ng-select
+                [ngClass]="{ 'is-invalid': form.controls.paciente.invalid && form.controls.paciente.touched }"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                [searchable]="true"
+                bindLabel="nombre"
+                formControlName="paciente"
+                placeholder="Seleccione un paciente"
+              >
+                <ng-option *ngFor="let paciente of allPacientes" [value]="paciente">
+                  {{ paciente.nombre }}
+                </ng-option>
+              </ng-select>
+              <div *ngIf="form.controls.paciente.invalid && form.controls.paciente.touched" class="invalid-feedback">
+                Este campo es obligatorio.
+              </div>
+            </div>
+
+            <!-- Campo Fecha de Pago -->
+            <div class="form-group">
+              <label for="fechapago">Fecha de Pago</label>
+              <input type="date"
+                [ngClass]="{ 'is-invalid': form.controls.fechapago.invalid && form.controls.fechapago.touched }"
+                formControlName="fechapago"
+                id="fechapago"
+                class="form-control"
+              />
+              <div *ngIf="form.controls.fechapago.invalid && form.controls.fechapago.touched" class="invalid-feedback">
+                La fecha de pago es obligatoria.
+              </div>
+            </div>
+
+            <!-- Campo Método de Pago -->
+            <div class="form-group">
+              <label for="metodopago">Método de Pago</label>
+              <select 
+                [ngClass]="{ 'is-invalid': form.controls.metodopago.invalid && form.controls.metodopago.touched }"
+                formControlName="metodopago"
+                id="metodopago"
+                class="form-control"
+              >
+                <option value="">Seleccione un método</option>
+                <option value="Efectivo">Efectivo</option>
+                <option value="Tarjeta">Tarjeta</option>
+              </select>
+              <div *ngIf="form.controls.metodopago.invalid && form.controls.metodopago.touched" class="invalid-feedback">
+                El método de pago es obligatorio.
+              </div>
+            </div>
+
+            <!-- Campo Estado -->
+            <div class="form-group">
+              <label for="estado">Estado</label>
+              <select 
+                [ngClass]="{ 'is-invalid': form.controls.estado.invalid && form.controls.estado.touched }"
+                formControlName="estado"
+                id="estado"
+                class="form-control"
+              >
+                <option value="">Seleccione un estado</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="Completado">Completado</option>
+              </select>
+              <div *ngIf="form.controls.estado.invalid && form.controls.estado.touched" class="invalid-feedback">
+                El estado es obligatorio.
+              </div>
+            </div>
+
+            <!-- Campo Tipo de Consulta -->
+            <div class="form-group">
+              <label for="tipoConsulta">Tipo de Consulta</label>
+              <input type="text"
+                [ngClass]="{ 'is-invalid': form.controls.tipoConsulta.invalid && form.controls.tipoConsulta.touched }"
+                formControlName="tipoConsulta"
+                id="tipoConsulta"
+                class="form-control"
+              />
+              <div *ngIf="form.controls.tipoConsulta.invalid && form.controls.tipoConsulta.touched" class="invalid-feedback">
+                El tipo de consulta es obligatorio.
+              </div>
+            </div>
+
+            <!-- Campo Monto Total -->
+            <div class="form-group">
+              <label for="montoTotal">Monto Total</label>
+              <input type="number"
+                [ngClass]="{ 'is-invalid': form.controls.montoTotal.invalid && form.controls.montoTotal.touched }"
+                formControlName="montoTotal"
+                id="montoTotal"
+                class="form-control"
+              />
+              <div *ngIf="form.controls.montoTotal.invalid && form.controls.montoTotal.touched" class="invalid-feedback">
+                El monto total es obligatorio y debe ser un número mayor o igual a 0.
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          *ngIf="!editPopup"
+          (click)="create()"
+          class="btn btn-primary"
+        >
+          Create
+        </button>
+        <button
+          type="button"
+          *ngIf="editPopup"
+          [disabled]="formSubmissionFlag"
+          (click)="update()"
+          class="btn btn-primary"
+        >
+          <div class="spinner-border text-light spinner" *ngIf="formSubmissionFlag"></div>
+          Save changes
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,163 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Caja</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Dispensación</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <form [formGroup]="cobroForm" (ngSubmit)="generarCobro()">
+            <div class="row">
+              <!-- Primera columna -->
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="nombre">Nombre</label>
+                      <input
+                        type="text"
+                        formControlName="nombre"
+                        class="form-control"
+                        [(ngModel)]="requestData.nombre"
+                        id="nombre"
+                        name="nombre"
+                        placeholder="Nombre"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="tnTelefono">Teléfono</label>
+                      <input
+                        type="number"
+                        formControlName="tnTelefono"
+                        class="form-control"
+                        [(ngModel)]="requestData.tnTelefono"
+                        id="tnTelefono"
+                        name="tnTelefono"
+                        placeholder="Teléfono"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="direccion">Dirección</label>
+                      <input
+                        type="text"
+                        formControlName="direccion"
+                        class="form-control"
+                        [(ngModel)]="requestData.direccion"
+                        id="direccion"
+                        name="direccion"
+                        placeholder="Dirección"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Segunda columna -->
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="tcRazonSocial">Razón Social</label>
+                      <input
+                        type="text"
+                        formControlName="tcRazonSocial"
+                        class="form-control"
+                        [(ngModel)]="requestData.tcRazonSocial"
+                        id="tcRazonSocial"
+                        name="tcRazonSocial"
+                        placeholder="Razón Social"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="tcCiNit">CI/NIT</label>
+                      <input
+                        type="number"
+                        formControlName="tcCiNit"
+                        class="form-control"
+                        [(ngModel)]="requestData.tcCiNit"
+                        id="tcCiNit"
+                        name="tcCiNit"
+                        placeholder="CI/NIT"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="tnMonto">Monto</label>
+                      <input
+                        type="number"
+                        formControlName="tnMonto"
+                        class="form-control"
+                        [(ngModel)]="requestData.tnMonto"
+                        id="tnMonto"
+                        name="tnMonto"
+                        placeholder="Monto"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="tcCorreo">Correo</label>
+                      <input
+                        type="email"
+                        formControlName="tcCorreo"
+                        class="form-control"
+                        [(ngModel)]="requestData.tcCorreo"
+                        id="tcCorreo"
+                        name="tcCorreo"
+                        placeholder="Correo"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="tnTipoServicio">Servicio</label>
+                      <ng-select
+                        [multiple]="false"
+                        [closeOnSelect]="true"
+                        [searchable]="false"
+                        bindLabel="tnTipoServicio"
+                        [(ngModel)]="requestData.tnTipoServicio"
+                        name="tnTipoServicio"
+                      >
+                        <ng-option *ngFor="let servicio of allServicios" [value]="servicio.value">
+                          {{ servicio.nombre }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+              <button class="btn btn-success btn-ls" type="submit">Generar Cobro</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

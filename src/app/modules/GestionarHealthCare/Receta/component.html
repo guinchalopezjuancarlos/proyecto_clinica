@@ -1,0 +1,225 @@
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Recetas</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Recetas</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <!-- /.row -->
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+
+            <button
+              type="button"
+              data-toggle="modal"
+              data-target="#user-modal"
+              class="card-title btn btn-primary"
+              style="float: right"
+              class="btn btn-primary"
+            >
+              Create
+            </button>
+            <button
+            type="button"
+            class="card-title btn btn-secondary"
+            style="float: right; margin-right: 10px"
+            (click)="downloadPDF()"
+          >
+            Download PDF
+          </button>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table
+            *ngIf="allRecetas.length > 0"
+              datatable
+              class="row-border hover table table-hover text-nowrap"
+            >
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Nombre del Doctor</th>
+                  <th>Nombre del Paciente</th>
+                  <th>Fecha</th>
+                  <th>Tratamiento</th>
+                  <th>medicamentosRecetados</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let e of allRecetas">
+                  <td>{{ e.id }}</td>
+                  <td>{{ e.doctor.nombre }}</td>
+                  <td>{{ e.paciente.nombre }}</td>
+                  <td>{{ e.fecha }}</td>
+                  <td>{{ e.tratamiento }}</td>
+                  <td>{{e.medicamentosRecetados}}</td>
+                  <td>
+                    <i class="fas fa-trash" (click)="delete(e)"></i>
+                    <i class="m-2" (click)="print(e)"><img 
+                      src="https://img.icons8.com/?size=100&id=uRoarpD5f5ra&format=png&color=000000" 
+                      alt="Icono" 
+                      class="img-fluid rounded" 
+                      style="width: 24px; height: 24px;"
+                    /></i>
+                    <i
+                      class="fas fa-pen"
+            
+                      style="margin-left: 15px"
+                      (click)="read(e)"
+                      data-toggle="modal"
+                      data-target="#user-modal"
+                    ></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<div class="modal fade" id="user-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="!editPopup">Agregar Receta</h4>
+        <h4 class="modal-title" *ngIf="editPopup">Edit </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="Form">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="doctor">Doctor</label>
+              <ng-select
+                [ngClass]="{ 'is-invalid': errors.includes('selectedDoctores') }"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                [searchable]="true"
+                bindLabel="name"
+                formControlName="doctor"
+                placeholder="Select Doctor"
+              >
+                <ng-option *ngFor="let doctor of allDoctores" [value]="doctor">{{
+                  doctor.nombre
+                }}</ng-option>
+              </ng-select>
+            </div>
+
+
+            <div class="form-group">
+              <label for="paciente">Paciente</label>
+              <ng-select
+                [ngClass]="{ 'is-invalid': errors.includes('selectedPacientes') }"
+                [multiple]="false"
+                [closeOnSelect]="true"
+                [searchable]="true"
+                bindLabel="name"
+                formControlName="paciente"
+                placeholder="Select Paciente"
+              >
+                <ng-option *ngFor="let paciente of allPacientes" [value]="paciente">{{
+                  paciente.nombre
+                }}</ng-option>
+              </ng-select>
+            </div>
+
+
+
+            <div class="form-group">
+              <label for="fecha">Fecha</label>
+              <input
+                type="date"
+                formControlName="fecha"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': errors.includes('fecha') }"
+                id="fecha"
+                placeholder="Fecha "
+              />
+            </div>
+
+
+
+            <div class="form-group">
+              <label for="tratamiento">Tratamiento</label>
+              <textarea
+                class="form-control"
+                formControlName="tratamiento"
+                [ngClass]="{ 'is-invalid': errors.includes('tratamiento') }"
+                id="tratamiento"
+                rows="10"
+                placeholder="Escribe el trtamiento aquí..."
+              ></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="medicamentosRecetados">Medicamentos Recetados</label>
+              <textarea
+                class="form-control"
+                formControlName="medicamentosRecetados" 
+                [ngClass]="{ 'is-invalid': errors.includes('medicamentosRecetados') }" 
+                id="medicamentosRecetados" 
+                row="10"
+                placeholder="Escribe los medicamentos recetados aquí..."
+              ></textarea>
+            </div>
+            
+
+
+
+
+
+          </div>
+          <!-- /.card-body -->
+        </form>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" #closeModal data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" *ngIf="!editPopup"  (click)="create()" class="btn btn-primary">
+          Create
+        </button>
+        <button type="button" *ngIf="editPopup" [disabled]="formSubmissionFlag" (click)="update()" class="btn btn-primary">
+          <div class="spinner-border text-light spinner" *ngIf="formSubmissionFlag"></div>
+          Save changes
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

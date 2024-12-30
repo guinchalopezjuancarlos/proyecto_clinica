@@ -1,0 +1,313 @@
+/* Estilos generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease;
+  }
+  
+  .container-fluid {
+    padding: 20px;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  /* Animación de desvanecimiento al cargar */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Encabezado de la página */
+  .content-header {
+    margin-bottom: 30px;
+    animation: slideInDown 1s ease-out;
+  }
+  
+  @keyframes slideInDown {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .content-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+  }
+  
+  .content-header h1:hover {
+    color: #007bff;
+  }
+  
+  .breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    font-size: 14px;
+  }
+  
+  .breadcrumb-item a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .breadcrumb-item a:hover {
+    color: #0056b3;
+  }
+  
+  .breadcrumb-item.active {
+    color: #6c757d;
+  }
+  
+  /* Estilo para la tarjeta de la tabla de usuarios */
+  .card {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    overflow: hidden;
+    background-color: #fff;
+    animation: slideInUp 0.8s ease-out;
+  }
+  
+  @keyframes slideInUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .card-header {
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+  }
+  
+  .card-header:hover {
+    background: linear-gradient(135deg, #2e59d9, #17a673);
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-footer {
+    background-color: #f8f9fa;
+    padding: 15px;
+    text-align: right;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo para la tabla de usuarios */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    margin-top: 15px;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  table th {
+    background-color: #4e73df;
+    color: white;
+    font-weight: 500;
+  }
+  
+  table td {
+    color: #495057;
+  }
+  
+  table td i {
+    cursor: pointer;
+    color: #007bff;
+    transition: transform 0.3s, color 0.3s;
+  }
+  
+  table td i:hover {
+    color: #0056b3;
+    transform: scale(1.1);
+  }
+  
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  /* Estilo para los botones dentro de las tarjetas */
+  .btn {
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+  }
+  
+  /* Estilo del modal */
+  .modal-dialog {
+    max-width: 800px;
+    margin: 30px auto;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .modal-content {
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header {
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 10px 10px 0 0;
+    transition: background 0.3s ease;
+  }
+  
+  .modal-header:hover {
+    background: linear-gradient(135deg, #2e59d9, #17a673);
+  }
+  
+  .modal-footer {
+    padding: 20px;
+    background-color: #f8f9fa;
+    text-align: right;
+    border-radius: 0 0 10px 10px;
+  }
+  
+  .modal-footer .btn {
+    margin-left: 10px;
+    padding: 12px 20px;
+  }
+  
+  .modal-footer .btn-primary {
+    background-color: #007bff;
+  }
+  
+  .modal-footer .btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
+  /* Estilos para formularios dentro del modal */
+  .form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    background-color: #f7f7f7;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .form-group input:focus, .form-group select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .form-group input.is-invalid, .form-group select.is-invalid {
+    border-color: #dc3545;
+  }
+  
+  .error.invalid-feedback {
+    color: #dc3545;
+    font-size: 12px;
+  }
+  
+  .spinner-border {
+    width: 20px;
+    height: 20px;
+    border-width: 3px;
+  }
+  
+  /* Animación del toast */
+  @keyframes slideInToast {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .toast {
+    border-radius: 5px;
+    padding: 12px 20px;
+    color: #fff;
+    font-weight: 600;
+    animation: slideInToast 0.5s ease-out;
+  }
+  
+  .toast-success {
+    background-color: #28a745;
+  }
+  
+  .toast-error {
+    background-color: #dc3545;
+  }
+  
+  .toast-info {
+    background-color: #17a2b8;
+  }
+  
+  .toast-warning {
+    background-color: #ffc107;
+  }
+  
